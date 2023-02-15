@@ -1,10 +1,12 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import Modal from '../UI/Modal';
 import CartItem from './CartItem'
-import styles from './Cart.module.css';
+import Checkout from './Checkout'
 import CartContext from '../../context/cart-context';
+import styles from './Cart.module.css';
 
 const Cart = props => {
+  const [isCheckout, setIsCheckout] = useState(false);
   const ctx = useContext(CartContext);
 
   const onAddItemHandler = item => {
@@ -12,7 +14,6 @@ const Cart = props => {
   }
 
   const onRemoveItemHandler = id => {
-    console.log(ctx);
     ctx.removeItem(id);
   }
 
@@ -52,6 +53,18 @@ const Cart = props => {
     </div>
     </Modal>
   )*/
+  
+  const checkoutHandler = function () {
+    setIsCheckout(true);
+  }
+
+  const actionsBtn = (
+    <div className={styles.actions}>
+      <button data-close-btn className={styles['button-alt']}>Close</button>
+      {hasItems && <button onClick={checkoutHandler} className={styles.button}>Order</button>}
+    </div>
+  )
+
   return (
     <Modal>
         {cartItems}
@@ -59,11 +72,10 @@ const Cart = props => {
         <span>Total Amount </span>
         <span>{totalAmount}</span>
       </div>
-      <div className={styles.actions}>
-        <button id='closeBtn' className={styles['button-alt']}>Close</button>
-        {hasItems && <button className={styles.button}>Order</button>}
-      </div>
-      </Modal>
+      
+      {isCheckout && <Checkout /> }
+      {!isCheckout && actionsBtn}
+    </Modal>
   )
 }
 

@@ -10,6 +10,20 @@
 }
 
 .cart-item h2 {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-item h2 {
+    font-size: 2rem;
+  }
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item h2 {
   margin: 0 0 0.5rem 0;
   color: #363636;
 }
