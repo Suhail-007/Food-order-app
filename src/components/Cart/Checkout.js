@@ -46,6 +46,11 @@ const Checkout = function(props) {
     let isFormValid = isNameValid && isStreetValid && isPostalCodeValid && isCityValid;
 
     if (!isFormValid) return
+    
+    props.onConfirm({
+      postalCode: fdObj.postal,
+      ...fdObj
+    })
   }
 
   const addInvalidClass = isInputValid => {
@@ -80,7 +85,6 @@ const Checkout = function(props) {
       </div>
       
       <div className={styles.actions}>
-        <button data-close-btn type='button'>Cancel</button>
         <button className={styles.submit}>Confirm</button>
       </div>
     </form>

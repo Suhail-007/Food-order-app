@@ -19,6 +19,9 @@ const useFetch = function() {
       if(!res.ok || !res) throw Error('Something went wrong!')
 
       const data = await res.json();
+      
+      if(typeof callback !== 'function') return data;
+      
       return callback(data)
     } catch (err) {
       throw err.message

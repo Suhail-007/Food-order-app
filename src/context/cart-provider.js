@@ -52,6 +52,10 @@ const cartReducer = function(state, action) {
       totalAmount: updatedTotalAmount
     }
   }
+  
+  if(action.type === 'RESET') {
+    return defaultCartState
+  }
 
   return defaultCartState;
 }
@@ -66,12 +70,17 @@ const CartProvider = (props) => {
   const removeItemHandler = id => {
     dispatchCartState({ type: 'REMOVE_ITEM', id })
   }
+  
+  const resetItemHandler = () => {
+    dispatchCartState({type: 'RESET'})
+  }
 
   const cartContext = {
     items: cartItems.items,
     totalAmount: cartItems.totalAmount,
     addItem: addItemHandler,
-    removeItem: removeItemHandler
+    removeItem: removeItemHandler,
+    reset: resetItemHandler
   }
 
   return <CartContext.Provider value = {cartContext}>{props.children}</CartContext.Provider>
