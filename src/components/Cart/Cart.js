@@ -9,7 +9,7 @@ import styles from './Cart.module.css';
 
 const Cart = props => {
   const [isCheckout, setIsCheckout] = useState(false);
-  const [isSubmitting, setisSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const [error, setError] = useState('');
 
@@ -43,31 +43,13 @@ const Cart = props => {
     </ul>
   );
 
-  // const toggleModal = function(e) {
-  //   if (e.target.closest('#closeBtn') || e.target.closest('#backdrop')) props.toggleCartModal();
-  // }
-
-  /*return (
-    <Modal onClickModal={toggleModal}>
-      {cartItems}
-    <div className={styles.total}>
-      <span>Total Amount </span>
-      <span>$ 12.55</span>
-    </div>
-    <div className={styles.actions}>
-      <button id='closeBtn' className={styles['button-alt']}>Close</button>
-      <button className={styles.button}>Order</button>
-    </div>
-    </Modal>
-  )*/
-
   const checkoutHandler = function() {
     setIsCheckout(true);
   }
 
   const submitOrderHandler = async function(userData) {
     try {
-      setisSubmitting(true);
+      setIsSubmitting(true);
       await sendRequest('https://custom-hook-7b5e7-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json', {
         method: 'POST',
         headers: {
@@ -79,18 +61,18 @@ const Cart = props => {
         }
       }, '_');
 
-      setisSubmitting(false);
+      setIsSubmitting(false);
       setDidSubmit(true);
       ctxCart.reset();
     } catch (err) {
-      setisSubmitting(false);
+      setIsSubmitting(false);
       setDidSubmit(false)
       setError(err)
     }
   }
   
   const submitting = (<>
-    <p>Submitting your order. pleade do not leave the page </p>
+    <p>Submitting your order. please do not leave the page </p>
   </>)
 
   const submitted = (
@@ -124,7 +106,7 @@ const Cart = props => {
     {!isSubmitting && !error && !didSubmit && cartItemsList}
     {isSubmitting && !error && !didSubmit && submitting}
     {didSubmit && !error && submitted}
-    {error && <p>An error occured, try again!</p>}
+    {error && <p>An error occurred, try again!</p>}
     {actionsBtn}
     </Modal>
   )

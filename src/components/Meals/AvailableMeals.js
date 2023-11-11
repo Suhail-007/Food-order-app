@@ -33,7 +33,7 @@ const AvailableMeals = props => {
       }
     }
     temp();
-  }, []);
+  }, [getMeals]);
   if (error) {
     return (
       <section className={styles.mealsError}>
